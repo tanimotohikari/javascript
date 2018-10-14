@@ -15,10 +15,39 @@
       cursor: pointer;
     }
   </style>
+  <style>
+    body {
+      background-color: #ccc;
+    }
+    .list {
+      max-width: 750px;
+      margin: 0 auto;
+      list-style: none;
+      background-color: #fff;
+      padding: 0;
+    }
+
+    .list-item {
+      display: flex;
+      display: -webkit-flex;
+      -webkit-justify-content: flex-start;
+      justify-content: flex-start;
+      border-bottom: 2px solid #ddd;
+    }
+    .list-item > * {
+      width: 50px;
+      padding: 5px 10px;
+      text-align: center;
+    }
+    .list-item *:last-child {
+      -webkit-flex-grow: 1;
+      flex-grow: 1;
+    }
+  </style>
   <script src="./index.js"></script>
 </head>
 <body>
-  <table class="table">
+  <!-- <table class="table">
     <tr>
       <td></td>
       <td></td>
@@ -99,6 +128,36 @@
       <td></td>
       <td></td>
     </tr>
-  </table>
+  </table>-->
+
+  <ul class="list">
+    <li class="list-item">
+      <p>定休日</p>
+      <p>曜日</p>
+      <p>営業時間〜終了時間</p>
+    </li>
+    <li class="list-item">
+      <p>日</p>
+      <div>
+        <input type="checkbox">
+      </div>
+      <div>
+        <select class="" name="">
+          <option value="">hoge</option>
+          <option value="">hoge</option>
+          <option value="">hoge</option>
+        </select>
+        <span>〜</span>
+        <select class="" name="">
+          <option value="">hoge</option>
+          <option value="">hoge</option>
+          <option value="">hoge</option>
+        </select>
+      </div>
+    </li>
+    <li class="list-item"></li>
+  </ul>
+
+
 </body>
 </html>
