@@ -18,8 +18,8 @@ window.onload = function(){
   //   });
   // }
 
-  for (var $i=0; $i < $tableElements.length; $i++) {
-    $tableElements[$i].addEventListener('click', function(){
+  for (var i=0; i < $tableElements.length; i++) {
+    $tableElements[i].addEventListener('click', function(){
       //配列に変換する
       var tableElements = [].slice.call($tableElements);
       //クリックした位置の取得
