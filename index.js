@@ -38,6 +38,7 @@ window.onload = function(){
 
   function putOthello(index) {
     $tableElements[index].innerHTML = othelloColor;
+    console.log(index);
   }
 
   //オセロの色を変える
@@ -47,6 +48,17 @@ window.onload = function(){
     let prevOthello = $tableElements[index - 1].innerHTML;
     let nextRightOthello = $tableElements[index + 2].innerHTML;
     let nextOthello = $tableElements[index + 1].innerHTML;
+
+    let rowSpot = [
+      [0, 1, 2, 3, 4, 5, 6, 7],
+      [8, 9, 10, 11, 12, 13, 14, 15],
+      [16, 17, 18, 19, 20, 21, 22, 23],
+      [24, 25, 26, 27, 28, 29, 30, 31],
+      [32, 33, 34, 35, 36, 37, 38, 39],
+      [40, 41, 42, 43, 44, 45, 46, 47],
+      [48, 49, 50, 51, 52, 53, 54, 55],
+      [56, 57, 58, 59, 60, 61, 62, 63]
+    ];
 
     let unavailableListLeft = [9, 17, 25, 33, 41, 49, 57];
     let unavailableListRight = [6, 14, 22, 30, 38, 46, 54];
@@ -113,7 +125,62 @@ window.onload = function(){
       }
     }
 
-    //相手にオセロを上下で挟み込んだ場合
+    if (index > 15) {
+      let topOthello = $tableElements[index - 8].innerHTML;
+      let upperTopOthello = $tableElements[index - 16].innerHTML;
+
+      //相手のオセロを上方向で挟み込んだ場合　黒色
+      if (upperTopOthello.match(othelloBlack) && topOthello.match(othelloWhte)) {
+        let targetIndex = index - 8;
+        putOthello(targetIndex, index);
+      }
+
+      //相手のオセロを上方向で挟み込んだ場合 白色
+      if (upperTopOthello.match(othelloWhte) && topOthello.match(othelloBlack)) {
+        let targetIndex = index - 8;
+        putOthello(targetIndex, index);
+      }
+    }
+
+    if(index < 48) {
+      let bottomOthello = $tableElements[index + 8].innerHTML;
+      let lowerBottomOthello = $tableElements[index + 16].innerHTML;
+
+      //相手のオセロを下方向で挟み込んだ場合　黒色
+      if (lowerBottomOthello.match(othelloBlack) && bottomOthello.match(othelloWhte)) {
+        let targetIndex = index + 8;
+        putOthello(targetIndex, index);
+      }
+
+      //相手のオセロを下方向で挟み込んだ場合 白色
+      if (lowerBottomOthello.match(othelloWhte) && bottomOthello.match(othelloBlack)) {
+        let targetIndex = index + 8;
+        putOthello(targetIndex, index);
+      }
+    }
+
+    //同じ色で挟んだ間のオセロの色を変える
+    let prevOthello = $tableElements[index - 1].innerHTML;
+    let nextOthello = $tableElements[index + 1].innerHTML;
+    let prevHorizontalOthellos = [
+      $tableElements[index - 1].innerHTML,
+      $tableElements[index - 2].innerHTML,
+      $tableElements[index - 3].innerHTML,
+      $tableElements[index - 4].innerHTML,
+      $tableElements[index - 5].innerHTML,
+      $tableElements[index - 6].innerHTML,
+      $tableElements[index - 7].innerHTML
+    ];
+    let nextHorizontalOthellos = [
+      $tableElements[index + 1].innerHTML,
+      $tableElements[index + 2].innerHTML,
+      $tableElements[index + 3].innerHTML,
+      $tableElements[index + 4].innerHTML,
+      $tableElements[index + 5].innerHTML,
+      $tableElements[index + 6].innerHTML,
+      $tableElements[index + 7].innerHTML,
+    ];
+
   }
 
   //順番の判別する
