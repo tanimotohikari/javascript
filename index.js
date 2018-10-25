@@ -160,8 +160,6 @@ window.onload = function(){
     }
 
     //同じ色で挟んだ間のオセロの色を変える
-    let prevOthello = $tableElements[index - 1].innerHTML;
-    let nextOthello = $tableElements[index + 1].innerHTML;
     let prevHorizontalOthellos = [
       $tableElements[index - 1].innerHTML,
       $tableElements[index - 2].innerHTML,
@@ -171,6 +169,7 @@ window.onload = function(){
       $tableElements[index - 6].innerHTML,
       $tableElements[index - 7].innerHTML
     ];
+    console.log(prevHorizontalOthellos);
     let nextHorizontalOthellos = [
       $tableElements[index + 1].innerHTML,
       $tableElements[index + 2].innerHTML,
@@ -180,7 +179,23 @@ window.onload = function(){
       $tableElements[index + 6].innerHTML,
       $tableElements[index + 7].innerHTML,
     ];
+    //console.log(nextHorizontalOthellos);
 
+    let othelloWhtePosition = prevHorizontalOthellos.indexOf('◯');
+    let hoge = prevHorizontalOthellos.slice(0, othelloWhtePosition);
+    let length = hoge.length;
+
+    let valid = hoge.every(value => value === '●');
+
+    if (valid) {
+      hoge.forEach(function() {
+        let indexNumber = 0;
+        hoge[indexNumber] = '◯';
+        console.log(hoge[indexNumber]);
+        indexNumber++;
+      });
+      console.log(hoge);
+    }
   }
 
   //順番の判別する
