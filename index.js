@@ -7,17 +7,6 @@ window.onload = function(){
   let othelloBlack = '●';
   let othelloColor = othelloBlack;
 
-  //tableの全てにclickイベントを付与する
-  // for (let $i=0; $i < $tableElements.length; $i++) {
-  //   othelloPositions.push($i);
-  //   $tableElements[$i].addEventListener('click', function(){
-  //     let tableElements = [].slice.call($tableElements);
-  //     let index = tableElements.indexOf(this);
-  //     changeOthello(index);
-  //     changeOrder();
-  //   });
-  // }
-
   for (let i=0; i < $tableElements.length; i++) {
     $tableElements[i].addEventListener('click', function(){
       //配列に変換する
@@ -48,17 +37,6 @@ window.onload = function(){
     let prevOthello = $tableElements[index - 1].innerHTML;
     let nextRightOthello = $tableElements[index + 2].innerHTML;
     let nextOthello = $tableElements[index + 1].innerHTML;
-
-    let rowSpot = [
-      [0, 1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14, 15],
-      [16, 17, 18, 19, 20, 21, 22, 23],
-      [24, 25, 26, 27, 28, 29, 30, 31],
-      [32, 33, 34, 35, 36, 37, 38, 39],
-      [40, 41, 42, 43, 44, 45, 46, 47],
-      [48, 49, 50, 51, 52, 53, 54, 55],
-      [56, 57, 58, 59, 60, 61, 62, 63]
-    ];
 
     let unavailableListLeft = [9, 17, 25, 33, 41, 49, 57];
     let unavailableListRight = [6, 14, 22, 30, 38, 46, 54];
@@ -159,43 +137,57 @@ window.onload = function(){
       }
     }
 
+    let prevHorizontalOthellos = {};
+    let nextHorizontalOthellos = {};
+
     //同じ色で挟んだ間のオセロの色を変える
-    let prevHorizontalOthellos = [
-      $tableElements[index - 1].innerHTML,
-      $tableElements[index - 2].innerHTML,
-      $tableElements[index - 3].innerHTML,
-      $tableElements[index - 4].innerHTML,
-      $tableElements[index - 5].innerHTML,
-      $tableElements[index - 6].innerHTML,
-      $tableElements[index - 7].innerHTML
-    ];
-    console.log(prevHorizontalOthellos);
-    let nextHorizontalOthellos = [
-      $tableElements[index + 1].innerHTML,
-      $tableElements[index + 2].innerHTML,
-      $tableElements[index + 3].innerHTML,
-      $tableElements[index + 4].innerHTML,
-      $tableElements[index + 5].innerHTML,
-      $tableElements[index + 6].innerHTML,
-      $tableElements[index + 7].innerHTML,
-    ];
-    //console.log(nextHorizontalOthellos);
-
-    let othelloWhtePosition = prevHorizontalOthellos.indexOf('◯');
-    let hoge = prevHorizontalOthellos.slice(0, othelloWhtePosition);
-    let length = hoge.length;
-
-    let valid = hoge.every(value => value === '●');
-
-    if (valid) {
-      hoge.forEach(function() {
-        let indexNumber = 0;
-        hoge[indexNumber] = '◯';
-        console.log(hoge[indexNumber]);
-        indexNumber++;
-      });
-      console.log(hoge);
+    for (let i=0; i < 8; i++) {
+      let value = $tableElements[index - (i + 1)].innerHTML;
+      let key = index - (i + 1);
+      prevHorizontalOthellos[i] = {[key]: value};
     }
+
+    let rowSpot = [
+      [0, 1, 2, 3, 4, 5, 6, 7],
+      [8, 9, 10, 11, 12, 13, 14, 15],
+      [16, 17, 18, 19, 20, 21, 22, 23],
+      [24, 25, 26, 27, 28, 29, 30, 31],
+      [32, 33, 34, 35, 36, 37, 38, 39],
+      [40, 41, 42, 43, 44, 45, 46, 47],
+      [48, 49, 50, 51, 52, 53, 54, 55],
+      [56, 57, 58, 59, 60, 61, 62, 63]
+    ];
+
+    console.log(rowSpot[5]);
+    console.log(Number(index));
+    let result = rowSpot[5].indexOf(index);
+    console.log(result);
+
+    let othellos = [];
+
+    for(var key in prevHorizontalOthellos) {
+      othellos = prevHorizontalOthellos[key];
+    }
+    //どこの配列を使うのかを判断できるようにする
+    let hoge = rowSpot[4][4];
+
+    //console.log(othellos[hoge]);
+
+    // let othelloWhtePosition = othellos.indexOf('◯');
+    // let targetOthellos = prevHorizontalOthellos.slice(0, othelloWhtePosition);
+    // let length = targetOthellos.length;
+    // let valid = targetOthellos.every(value => value === '●');
+
+    //console.log(othelloWhtePosition);
+    //console.log(prevHorizontalOthellos);
+
+    // if (valid) {
+    //   othellos.forEach(function() {
+    //     let indexNumber = 0;
+    //     hoge[indexNumber] = '◯';
+    //     indexNumber++;
+    //   });
+    // }
   }
 
   //順番の判別する
