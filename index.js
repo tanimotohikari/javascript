@@ -27,7 +27,6 @@ window.onload = function(){
 
   function putOthello(index) {
     $tableElements[index].innerHTML = othelloColor;
-    console.log(index);
   }
 
   //オセロの色を変える
@@ -137,16 +136,6 @@ window.onload = function(){
       }
     }
 
-    let prevHorizontalOthellos = {};
-    let nextHorizontalOthellos = {};
-
-    //同じ色で挟んだ間のオセロの色を変える
-    for (let i=0; i < 8; i++) {
-      let value = $tableElements[index - (i + 1)].innerHTML;
-      let key = index - (i + 1);
-      prevHorizontalOthellos[i] = {[key]: value};
-    }
-
     let rowSpot = [
       [0, 1, 2, 3, 4, 5, 6, 7],
       [8, 9, 10, 11, 12, 13, 14, 15],
@@ -158,20 +147,22 @@ window.onload = function(){
       [56, 57, 58, 59, 60, 61, 62, 63]
     ];
 
-    console.log(rowSpot[5]);
-    console.log(Number(index));
-    let result = rowSpot[5].indexOf(index);
-    console.log(result);
+    let selectArray;
+    let selectNumber;
 
-    let othellos = [];
-
-    for(var key in prevHorizontalOthellos) {
-      othellos = prevHorizontalOthellos[key];
+    for(let i=0; i < 8; i++) {
+      if (rowSpot[i].indexOf(index) !== -1) {
+        selectArray = i;
+        selectNumber = rowSpot[i].indexOf(index);
+      }
     }
-    //どこの配列を使うのかを判断できるようにする
-    let hoge = rowSpot[4][4];
 
-    //console.log(othellos[hoge]);
+    //まずは置けるかをチェックする　たて、よこ、ななめ for文
+    //置けるならどこまでを自分のオセロの色に変えるかを決める for文
+    //オセロの色を変える
+
+    console.log(selectArray);
+    console.log(selectNumber);
 
     // let othelloWhtePosition = othellos.indexOf('◯');
     // let targetOthellos = prevHorizontalOthellos.slice(0, othelloWhtePosition);
