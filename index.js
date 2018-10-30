@@ -7,7 +7,7 @@ window.onload = function(){
   let othelloBlack = '●';
   let othelloColor = othelloBlack;
 
-  for (let i=0; i < $tableElements.length; i++) {
+  for (var i=0; i < $tableElements.length; i++) {
     $tableElements[i].addEventListener('click', function(){
       //配列に変換する
       let tableElements = [].slice.call($tableElements);
@@ -150,19 +150,34 @@ window.onload = function(){
     let selectArray;
     let selectNumber;
 
-    for(let i=0; i < 8; i++) {
+    for(var i=0; i < 8; i++) {
       if (rowSpot[i].indexOf(index) !== -1) {
         selectArray = i;
         selectNumber = rowSpot[i].indexOf(index);
       }
     }
 
-    //まずは置けるかをチェックする　たて、よこ、ななめ for文
-    //置けるならどこまでを自分のオセロの色に変えるかを決める for文
-    //オセロの色を変える
-
     console.log(selectArray);
     console.log(selectNumber);
+
+    //まずは置けるかをチェックする　縦、横、斜め
+    //縦のチェック
+
+    //置けるならどこまでを自分のオセロの色に変えるかを決める for文
+    //オセロの色を変える
+    for (var i=0; i < 8; i++) {
+      let target = rowSpot[i][selectNumber];
+      if (order) {
+        console.log($tableElements[target].innerHTML);
+        if ($tableElements[target].innerHTML.match(othelloBlack)) {
+          console.log('ok');
+        }
+      } else {
+        if ($tableElements[target].innerHTML.match(othelloWhte)) {
+
+        }
+      }
+    }
 
     // let othelloWhtePosition = othellos.indexOf('◯');
     // let targetOthellos = prevHorizontalOthellos.slice(0, othelloWhtePosition);
