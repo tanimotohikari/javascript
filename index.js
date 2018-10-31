@@ -157,24 +157,29 @@ window.onload = function(){
       }
     }
 
-    console.log(selectArray);
-    console.log(selectNumber);
+    // console.log(selectArray);
+    // console.log(selectNumber);
 
-    //まずは置けるかをチェックする　縦、横、斜め
-    //縦のチェック
-
-    //置けるならどこまでを自分のオセロの色に変えるかを決める for文
-    //オセロの色を変える
+    //複数のオセロの色を変える
     for (var i=0; i < 8; i++) {
       let target = rowSpot[i][selectNumber];
-      if (order) {
-        console.log($tableElements[target].innerHTML);
-        if ($tableElements[target].innerHTML.match(othelloBlack)) {
-          console.log('ok');
-        }
-      } else {
-        if ($tableElements[target].innerHTML.match(othelloWhte)) {
+      //選択した以外のマス目をチェック
+      if (target !== index) {
+        //黒か白かの判定
+        if (order) {
+          if ($tableElements[target].innerHTML.match(othelloBlack)) {
+            let othelloChangeNumber = (i - 1) - selectArray;
+            console.log(othelloChangeNumber);
+            for (var n=0; n < othelloChangeNumber; n++) {
+              let changeTarget = rowSpot[n + othelloChangeNumber][selectNumber];
+              console.log(changeTarget);
+              $tableElements[changeTarget].innerHTML = othelloColor;
+            }
+          }
+        } else {
+          if ($tableElements[target].innerHTML.match(othelloWhte)) {
 
+          }
         }
       }
     }
