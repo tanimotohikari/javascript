@@ -48,10 +48,22 @@
       -webkit-flex-grow: 1;
       flex-grow: 1;
     }
+
+    .is-hide {
+      display: none;
+    }
+
+    .order {
+      font-size: 20px;
+    }
   </style>
   <script src="./index.js"></script>
 </head>
 <body>
+  <div class='order'>
+    <p id='order-black'>順番：黒</p>
+    <p id='order-white' class='is-hide'>順番：白</p>
+  </div>
   <table class="table">
     <tr>
       <td></td>
