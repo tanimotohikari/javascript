@@ -16,6 +16,7 @@ window.onload = function(){
       let tableElements = [].slice.call($tableElements);
       //クリックした位置の取得
       let index = tableElements.indexOf(this);
+      checkPutOthllo(index);
       putOthello(index);
       changeOthello(index);
       changeOrder();
@@ -38,14 +39,12 @@ window.onload = function(){
     }
   }
 
-  //オセロを置く
-  function putOthello(index) {
-    $tableElements[index].innerHTML = othelloColor;
-  }
-
-  //オセロの色を変える
-  function changeOthello(index) {
-
+  //オセロが置けるかをチェックする
+  function checkPutOthllo (index) {
+    //現在オセロが置かれているのか
+    $tableElements[index].innerHTML.match(othelloColor)
+    
+    //index番号から配列のどの位置にオセロを置いたのかを判断するための配列
     let rowSpot = [
       [0, 1, 2, 3, 4, 5, 6, 7],
       [8, 9, 10, 11, 12, 13, 14, 15],
@@ -57,41 +56,72 @@ window.onload = function(){
       [56, 57, 58, 59, 60, 61, 62, 63]
     ];
 
-    let selectArray;
-    let selectNumber;
+    let arrayNumber;
+    let itemNumber;
+    let valid = [];
 
     for(var i=0; i < 8; i++) {
       if (rowSpot[i].indexOf(index) !== -1) {
-        selectArray = i;
-        selectNumber = rowSpot[i].indexOf(index);
+        arrayNumber = i;
+        itemNumber = rowSpot[i].indexOf(index);
       }
     }
 
-    // console.log(selectArray);
-    // console.log(selectNumber);
+    console.log(arrayNumber);
+    console.log(itemNumber);
+    console.log(index);
+
+    //オセロを置いたとことから上のマスをチェック
+    //オセロを置いたところを含ませないように初期値を1に設定
+    for (let i=1; i < arrayNumber; i ++) {
+      if($tableElements[index - (8 * i)].innerHTML.match(othelloColor)) {
+        //console.log('おける！');
+      } else {
+        //console.log('だめ！');
+      }
+    }
+
+    //オセロを置いたとことから下のマスをチェック
+    for (let n=1; n < (8 - arrayNumber); n ++) {
+      var num = index + (8 * n);
+      if($tableElements[index + (8 * n)].innerHTML.match(othelloColor)) {
+        console.log( num + ': おける！');
+      } else {
+        console.log( num + ': だめ！');
+      }
+    }
+  }
+
+  //オセロを置く
+  function putOthello(index) {
+    $tableElements[index].innerHTML = othelloColor;
+  }
+
+  //オセロの色を変える
+  function changeOthello(index) {
 
     //複数のオセロの色を変える
-    for (var i=0; i < 8; i++) {
-      let target = rowSpot[i][selectNumber];
-      //選択した以外のマス目をチェック
-      if (target !== index) {
-        //黒か白かの判定
-        if (order) {
-          if ($tableElements[target].innerHTML.match(othelloBlack)) {
-            let othelloChangeNumber = (i - 1) - selectArray;
-            //console.log(othelloChangeNumber);
-            for (var n=0; n < othelloChangeNumber; n++) {
-              let changeTarget = rowSpot[n + othelloChangeNumber][selectNumber];
-              //console.log(changeTarget);
-              $tableElements[changeTarget].innerHTML = othelloColor;
-            }
-          }
-        } else {
-          if ($tableElements[target].innerHTML.match(othelloWhite)) {
-
-          }
-        }
-      }
-    }
+    // for (var i=0; i < 8; i++) {
+    //   let target = rowSpot[i][itemNumber];
+    //   //選択した以外のマス目をチェック
+    //   if (target !== index) {
+    //     //黒か白かの判定
+    //     if (order) {
+    //       if ($tableElements[target].innerHTML.match(othelloBlack)) {
+    //         let othelloChangeNumber = (i - 1) - arrayNumber;
+    //         //console.log(othelloChangeNumber);
+    //         for (var n=0; n < othelloChangeNumber; n++) {
+    //           let changeTarget = rowSpot[n + othelloChangeNumber][itemNumber];
+    //           //console.log(changeTarget);
+    //           $tableElements[changeTarget].innerHTML = othelloColor;
+    //         }
+    //       }
+    //     } else {
+    //       if ($tableElements[target].innerHTML.match(othelloWhite)) {
+    //
+    //       }
+    //     }
+    //   }
+    // }
   }
 }
