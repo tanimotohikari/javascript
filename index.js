@@ -43,7 +43,7 @@ window.onload = function(){
   function checkPutOthllo (index) {
     //現在オセロが置かれているのか
     $tableElements[index].innerHTML.match(othelloColor)
-    
+
     //index番号から配列のどの位置にオセロを置いたのかを判断するための配列
     let rowSpot = [
       [0, 1, 2, 3, 4, 5, 6, 7],
@@ -59,35 +59,56 @@ window.onload = function(){
     let arrayNumber;
     let itemNumber;
     let valid = [];
+    let changeIndexs = [];
 
-    for(var i=0; i < 8; i++) {
+    for(let i=0; i < 8; i++) {
       if (rowSpot[i].indexOf(index) !== -1) {
         arrayNumber = i;
         itemNumber = rowSpot[i].indexOf(index);
       }
     }
 
-    console.log(arrayNumber);
-    console.log(itemNumber);
-    console.log(index);
+    // console.log(arrayNumber);
+    // console.log(itemNumber);
+    // console.log(index);
+
+    //置いた場所の直後のオセロの色をチェック
+    // let element = $tableElements[index + 8].innerHTML.match(othelloColor);
+    // console.log(element[0]);
+    // if(element[0] !== othelloColor) {
+    //   console.log('hoge');
+    //   if($tableElements[num].innerHTML.match(othelloColor)) {
+    // }
 
     //オセロを置いたとことから上のマスをチェック
     //オセロを置いたところを含ませないように初期値を1に設定
-    for (let i=1; i < arrayNumber; i ++) {
+    for (let i=1; i < arrayNumber; i++) {
+      let checkNumber = index - (8 * i);
       if($tableElements[index - (8 * i)].innerHTML.match(othelloColor)) {
-        //console.log('おける！');
-      } else {
-        //console.log('だめ！');
+        //間のオセロの色を変える
+        //同じ色までのオセロの数
+        let changeNumber = -((checkNumber -index) / 8);
+        console.log(changeNumber);
+        for (let m=0; m < changeNumber - 1; m++) {
+          changeIndexs[m] = checkNumber + (8 * (m + 1));
+
+          $tableElements[changeIndexs[m]].innerHTML = othelloColor;
+        }
       }
     }
 
     //オセロを置いたとことから下のマスをチェック
     for (let n=1; n < (8 - arrayNumber); n ++) {
-      var num = index + (8 * n);
-      if($tableElements[index + (8 * n)].innerHTML.match(othelloColor)) {
-        console.log( num + ': おける！');
-      } else {
-        console.log( num + ': だめ！');
+      let checkNumber = index + (8 * n);
+      //changeIndexs
+      if($tableElements[checkNumber].innerHTML.match(othelloColor)) {
+        //間のオセロの色を変える
+        //同じ色までのオセロの数
+        let changeNumber = ((checkNumber -index) / 8);
+        for (let m=0; m < changeNumber - 1; m++) {
+          changeIndexs[m] = checkNumber - (8 * (m + 1));
+          $tableElements[changeIndexs[m]].innerHTML = othelloColor;
+        }
       }
     }
   }
