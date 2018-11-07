@@ -69,8 +69,8 @@ window.onload = function(){
     }
 
     //console.log(arrayNumber);
-    console.log('item:' + itemNumber);
-    console.log('index:' + index);
+    // console.log('item:' + itemNumber);
+    // console.log('index:' + index);
 
     //置いた場所の直後のオセロの色をチェック
     // let element = $tableElements[index + 8].innerHTML.match(othelloColor);
@@ -125,10 +125,9 @@ window.onload = function(){
     }
 
     //オセロを置いたとことから右のマスをチェック
-    for (let i=1; i < (8 - itemNumber) - 1); i++) {
+    for (let i=1; i < (8 - itemNumber); i++) {
       let checkNumber = index + i;
       if($tableElements[checkNumber].innerHTML.match(othelloColor)) {
-        console.log($tableElements[checkNumber]);
         //間のオセロの色を変える
         //同じ色までのオセロの数
         let changeNumber = checkNumber - index;
